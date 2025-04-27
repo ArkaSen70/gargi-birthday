@@ -72,7 +72,7 @@ export default function Home() {
           >
             <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
               May this special day bring you joy, laughter, and countless beautiful memories.
-              Here's to celebrating you and all the wonderful moments that lie ahead!
+              Here&apos;s to celebrating you and all the wonderful moments that lie ahead!
             </p>
             
             <motion.div

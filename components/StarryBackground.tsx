@@ -29,6 +29,9 @@ const MovingStars = memo(({ speed = 0.05 }) => {
   )
 })
 
+// Add display name
+MovingStars.displayName = 'MovingStars'
+
 // Use React.memo to prevent unnecessary re-renders
 const StarryBackground = memo(({ animated = true }) => {
   // For non-animated version, use even fewer stars
@@ -52,5 +55,8 @@ const StarryBackground = memo(({ animated = true }) => {
     </div>
   )
 })
+
+// Add display name
+StarryBackground.displayName = 'StarryBackground'
 
 export default StarryBackground 

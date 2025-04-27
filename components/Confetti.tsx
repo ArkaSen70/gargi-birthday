@@ -9,11 +9,10 @@ const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5']
 interface ConfettiPieceProps {
   delay: number
   x: number
-  y: number
   color: string
 }
 
-const ConfettiPiece = ({ delay, x, y, color }: ConfettiPieceProps) => {
+const ConfettiPiece = ({ delay, x, color }: ConfettiPieceProps) => {
   return (
     <motion.div
       initial={{ y: -10, x, rotate: 0, opacity: 0 }}
@@ -43,10 +42,9 @@ export default function Confetti() {
   const [pieces, setPieces] = useState<ConfettiPieceProps[]>([])
 
   useEffect(() => {
-    const newPieces = Array.from({ length: 50 }, (_, i) => ({
+    const newPieces = Array.from({ length: 50 }, () => ({
       delay: Math.random() * 5,
       x: Math.random() * window.innerWidth,
-      y: Math.random() * -200,
       color: colors[Math.floor(Math.random() * colors.length)],
     }))
     setPieces(newPieces)

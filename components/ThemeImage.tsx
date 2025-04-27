@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 interface ThemeImageProps {
   text: string
@@ -10,31 +10,18 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
   const [imgError, setImgError] = useState(false)
   const [imagePath, setImagePath] = useState('')
   const [isHovered, setIsHovered] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   // List of extensions to try
   const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
   
-  useEffect(() => {
-    // Reset state when props change
-    setImgError(false);
-    setImageLoaded(false);
-    
-    const basePath = getImageBasePath();
-    console.log(`ThemeImage: Base path for ${text}: ${basePath}`);
-    
-    // Try to find the image with different extensions
-    tryLoadImage(basePath);
-  }, [text, theme]);
-
-  // Get the base image path without extension
-  const getImageBasePath = () => {
+  // Get the base image path without extension - moved outside useEffect
+  const getImageBasePath = useCallback(() => {
     const sanitizedText = text.toLowerCase().replace(/\s+/g, '-')
     return `/images/${theme}/${sanitizedText}`;
-  }
+  }, [text, theme]);
   
   // Try loading the image with different extensions
-  const tryLoadImage = async (basePath) => {
+  const tryLoadImage = useCallback(async (basePath) => {
     for (const ext of extensions) {
       const path = `${basePath}.${ext}`;
       const exists = await checkImage(path);
@@ -42,7 +29,6 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
       if (exists) {
         console.log(`ThemeImage: Found image at ${path}`);
         setImagePath(path);
-        setImageLoaded(true);
         return;
       }
     }
@@ -50,8 +36,19 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
     // If we get here, no valid image was found
     console.error(`ThemeImage: No valid image found for ${basePath}`);
     setImgError(true);
-  }
+  }, [extensions]);
   
+  useEffect(() => {
+    // Reset state when props change
+    setImgError(false);
+    
+    const basePath = getImageBasePath();
+    console.log(`ThemeImage: Base path for ${text}: ${basePath}`);
+    
+    // Try to find the image with different extensions
+    tryLoadImage(basePath);
+  }, [text, theme, getImageBasePath, tryLoadImage]);
+
   // Check if an image exists
   const checkImage = (path) => {
     return new Promise((resolve) => {

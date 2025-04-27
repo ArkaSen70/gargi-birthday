@@ -11,10 +11,7 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
   const [imagePath, setImagePath] = useState('')
   const [isHovered, setIsHovered] = useState(false)
 
-  // List of extensions to try
-  const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-  
-  // Get the base image path without extension - moved outside useEffect
+  // Get the base image path without extension
   const getImageBasePath = useCallback(() => {
     const sanitizedText = text.toLowerCase().replace(/\s+/g, '-')
     return `/images/${theme}/${sanitizedText}`;
@@ -22,6 +19,9 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
   
   // Try loading the image with different extensions
   const tryLoadImage = useCallback(async (basePath) => {
+    // Move the extensions array inside the callback
+    const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    
     for (const ext of extensions) {
       const path = `${basePath}.${ext}`;
       const exists = await checkImage(path);
@@ -36,7 +36,7 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
     // If we get here, no valid image was found
     console.error(`ThemeImage: No valid image found for ${basePath}`);
     setImgError(true);
-  }, [extensions]);
+  }, []);
   
   useEffect(() => {
     // Reset state when props change

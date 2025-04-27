@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 
 interface ThemeImageProps {
   text: string
@@ -87,21 +88,22 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
         <>
           {imagePath && (
             <>
-              <img
-                src={imagePath}
-                alt={text}
-                className="w-full h-full object-contain transition-all duration-700 ease-in-out"
-                style={{ 
-                  maxHeight: '100%', 
-                  maxWidth: '100%',
-                  display: 'block',
-                  transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                  filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
-                }}
-                onError={handleError}
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src={imagePath}
+                  alt={text}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-contain transition-all duration-700 ease-in-out"
+                  style={{ 
+                    transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                    filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
+                  }}
+                  onError={handleError}
+                />
+              </div>
               <div 
-                className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 transition-all duration-500"
+                className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 transition-all duration-500 z-10"
                 style={{
                   transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
                   opacity: isHovered ? 1 : 0

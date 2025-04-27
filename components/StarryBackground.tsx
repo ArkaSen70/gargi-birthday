@@ -3,8 +3,12 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars } from '@react-three/drei'
 import * as THREE from 'three'
 
+interface MovingStarsProps {
+  speed?: number
+}
+
 // Optimize the moving stars by reducing the count
-const MovingStars = memo(({ speed = 0.05 }) => {
+const MovingStars = memo(({ speed = 0.05 }: MovingStarsProps) => {
   const starsRef = useRef<THREE.Points>(null)
   
   useFrame(({ clock }) => {
@@ -32,8 +36,12 @@ const MovingStars = memo(({ speed = 0.05 }) => {
 // Add display name
 MovingStars.displayName = 'MovingStars'
 
+export interface StarryBackgroundProps {
+  animated?: boolean
+}
+
 // Use React.memo to prevent unnecessary re-renders
-const StarryBackground = memo(({ animated = true }) => {
+const StarryBackground = memo(({ animated = true }: StarryBackgroundProps) => {
   // For non-animated version, use even fewer stars
   return (
     <div className="fixed inset-0 z-0">

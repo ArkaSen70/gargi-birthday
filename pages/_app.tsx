@@ -38,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <title>Gargi&apos;s Birthday</title>
         {/* Any page-level head content can go here, but not stylesheets */}
       </Head>
       {loading && <LoadingIndicator />}

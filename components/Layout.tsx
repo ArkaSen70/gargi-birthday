@@ -15,7 +15,7 @@ interface LayoutProps {
   animated?: boolean
 }
 
-const Layout = ({ children, title, description, animated = true }: LayoutProps) => {
+const Layout: React.FC<LayoutProps> = ({ children, title, description, animated = true }) => {
   return (
     <>
       <Head>

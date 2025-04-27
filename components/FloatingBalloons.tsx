@@ -1,10 +1,15 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 
-const Balloon = ({ delay, x, y }: { delay: number; x: number; y: number }) => {
+interface BalloonProps {
+  delay: number;
+  x: number;
+  y: number;
+}
+
+const Balloon: React.FC<BalloonProps> = ({ delay, x, y }) => {
   return (
     <motion.div
       initial={{ y: '100vh', x }}
@@ -27,8 +32,8 @@ const Balloon = ({ delay, x, y }: { delay: number; x: number; y: number }) => {
   )
 }
 
-export default function FloatingBalloons() {
-  const [balloons, setBalloons] = useState<{ delay: number; x: number; y: number }[]>([])
+const FloatingBalloons: React.FC = () => {
+  const [balloons, setBalloons] = useState<BalloonProps[]>([])
 
   useEffect(() => {
     const newBalloons = Array.from({ length: 15 }, (_, i) => ({
@@ -46,4 +51,6 @@ export default function FloatingBalloons() {
       ))}
     </div>
   )
-} 
+}
+
+export default FloatingBalloons 

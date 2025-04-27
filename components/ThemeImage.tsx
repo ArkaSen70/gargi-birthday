@@ -8,18 +8,18 @@ interface ThemeImageProps {
 }
 
 const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) => {
-  const [imgError, setImgError] = useState(false)
-  const [imagePath, setImagePath] = useState('')
-  const [isHovered, setIsHovered] = useState(false)
+  const [imgError, setImgError] = useState<boolean>(false)
+  const [imagePath, setImagePath] = useState<string>('')
+  const [isHovered, setIsHovered] = useState<boolean>(false)
 
   // Get the base image path without extension
-  const getImageBasePath = useCallback(() => {
+  const getImageBasePath = useCallback((): string => {
     const sanitizedText = text.toLowerCase().replace(/\s+/g, '-')
     return `/images/${theme}/${sanitizedText}`;
   }, [text, theme]);
   
   // Try loading the image with different extensions
-  const tryLoadImage = useCallback(async (basePath) => {
+  const tryLoadImage = useCallback(async (basePath: string): Promise<void> => {
     // Move the extensions array inside the callback
     const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
     
@@ -51,16 +51,16 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
   }, [text, theme, getImageBasePath, tryLoadImage]);
 
   // Check if an image exists
-  const checkImage = (path) => {
+  const checkImage = (path: string): Promise<boolean> => {
     return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-      img.src = path;
+      const imgElement = new window.Image();
+      imgElement.onload = () => resolve(true);
+      imgElement.onerror = () => resolve(false);
+      imgElement.src = path;
     });
   }
 
-  const handleError = () => {
+  const handleError = (): void => {
     console.error(`ThemeImage: Error loading image from: ${imagePath}`);
     setImgError(true);
   }

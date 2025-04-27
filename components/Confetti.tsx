@@ -1,18 +1,17 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 
-const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5']
+const colors: string[] = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5']
 
 interface ConfettiPieceProps {
-  delay: number
-  x: number
-  color: string
+  delay: number;
+  x: number;
+  color: string;
 }
 
-const ConfettiPiece = ({ delay, x, color }: ConfettiPieceProps) => {
+const ConfettiPiece: React.FC<ConfettiPieceProps> = ({ delay, x, color }) => {
   return (
     <motion.div
       initial={{ y: -10, x, rotate: 0, opacity: 0 }}
@@ -38,7 +37,7 @@ const ConfettiPiece = ({ delay, x, color }: ConfettiPieceProps) => {
   )
 }
 
-export default function Confetti() {
+const Confetti: React.FC = () => {
   const [pieces, setPieces] = useState<ConfettiPieceProps[]>([])
 
   useEffect(() => {
@@ -57,4 +56,6 @@ export default function Confetti() {
       ))}
     </div>
   )
-} 
+}
+
+export default Confetti 

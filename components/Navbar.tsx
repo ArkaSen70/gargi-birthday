@@ -3,11 +3,16 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const Navbar = () => {
-  const router = useRouter()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+interface NavItem {
+  name: string;
+  path: string;
+}
 
-  const navItems = [
+const Navbar: React.FC = () => {
+  const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+
+  const navItems: NavItem[] = [
     { name: 'Home', path: '/' },
     { name: 'BTS', path: '/bts' },
     { name: 'Attack on Titan', path: '/aot' },
@@ -18,11 +23,11 @@ const Navbar = () => {
     { name: 'Surprise Gifts', path: '/surprise-gifts' },
   ]
 
-  const toggleMenu = useCallback(() => {
+  const toggleMenu = useCallback((): void => {
     setIsMenuOpen(prev => !prev)
   }, [])
 
-  const closeMenu = useCallback(() => {
+  const closeMenu = useCallback((): void => {
     setIsMenuOpen(false)
   }, [])
 
@@ -32,7 +37,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" onClick={closeMenu}>
             <span className="text-white font-bold text-xl cursor-pointer hover:text-pink-400 transition-colors">
-              Gargi&apos;s Birthday 🎉
+              Gargi's Birthday 🎉
             </span>
           </Link>
           

@@ -13,10 +13,13 @@ const btsMembers = [
   { name: 'Jungkook', description: 'Golden maknae wishes you a golden birthday!' }
 ]
 
-const BTS = () => {
+const BTS: React.FC = () => {
   useEffect(() => {
-    console.log("BTS Page loaded");
-    console.log("Looking for images in:", btsMembers.map(m => `/images/bts/${m.name.toLowerCase().replace(/\s+/g, '-')}.jpg`));
+    // Remove console logs in production to improve performance
+    if (process.env.NODE_ENV === 'development') {
+      console.log("BTS Page loaded");
+      console.log("Looking for images in:", btsMembers.map(m => `/images/bts/${m.name.toLowerCase().replace(/\s+/g, '-')}.jpg`));
+    }
   }, []);
 
   return (
@@ -49,6 +52,7 @@ const BTS = () => {
                   text={member.name} 
                   theme="bts"
                   className="rounded-lg"
+                  priority={index < 3} // Prioritize first 3 images (above the fold)
                 />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>

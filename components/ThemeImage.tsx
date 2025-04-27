@@ -5,12 +5,17 @@ interface ThemeImageProps {
   text: string
   theme: string
   className?: string
+  priority?: boolean
 }
 
-const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) => {
+// Base64 blur placeholder for common image dimensions (16:9)
+const blurDataURL = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAJABADAREAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABgj/xAAhEAABAwMFAQAAAAAAAAAAAAABAAIDBAURBhIhMUFRYf/EABUBAQEAAAAAAAAAAAAAAAAAAAUG/8QAHBEAAQQDAQAAAAAAAAAAAAAAAgABAxEEEhMxUf/aAAwDAQACEQMRAD8AXL7qfvBlYy8Ol/CyQEpOiYxITbhPKrZ1rblI5zmF4DtyeUB2j6JYYJKRSRkdI+8vkOgN2/VJ4jxuRqHVZMB2RRGwk//Z";
+
+const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '', priority = false }) => {
   const [imgError, setImgError] = useState<boolean>(false)
   const [imagePath, setImagePath] = useState<string>('')
   const [isHovered, setIsHovered] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   // Get the base image path without extension
   const getImageBasePath = useCallback((): string => {
@@ -20,8 +25,8 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
   
   // Try loading the image with different extensions
   const tryLoadImage = useCallback(async (basePath: string): Promise<void> => {
-    // Move the extensions array inside the callback
-    const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    // Prefer WebP for better performance if supported
+    const extensions = ['webp', 'jpg', 'jpeg', 'png', 'gif'];
     
     for (const ext of extensions) {
       const path = `${basePath}.${ext}`;
@@ -42,12 +47,17 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
   useEffect(() => {
     // Reset state when props change
     setImgError(false);
+    setIsLoaded(false);
     
     const basePath = getImageBasePath();
-    console.log(`ThemeImage: Base path for ${text}: ${basePath}`);
     
     // Try to find the image with different extensions
     tryLoadImage(basePath);
+
+    // Cleanup function
+    return () => {
+      // Cancel any pending operations if component unmounts
+    };
   }, [text, theme, getImageBasePath, tryLoadImage]);
 
   // Check if an image exists
@@ -64,6 +74,10 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
     console.error(`ThemeImage: Error loading image from: ${imagePath}`);
     setImgError(true);
   }
+
+  const handleImageLoad = (): void => {
+    setIsLoaded(true);
+  };
 
   return (
     <div 
@@ -93,13 +107,18 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '' }) 
                   src={imagePath}
                   alt={text}
                   fill
+                  priority={priority}
+                  quality={80}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-contain transition-all duration-700 ease-in-out"
+                  className={`object-contain transition-all duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
                   style={{ 
                     transform: isHovered ? 'scale(1.1)' : 'scale(1)',
                     filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
                   }}
+                  blurDataURL={blurDataURL}
+                  placeholder="blur"
                   onError={handleError}
+                  onLoad={handleImageLoad}
                 />
               </div>
               <div 

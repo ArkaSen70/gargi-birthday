@@ -39,7 +39,14 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Gargi&apos;s Birthday</title>
-        {/* Any page-level head content can go here, but not stylesheets */}
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/images/bts/rm.webp" />
+        <link rel="preload" as="image" href="/images/bts/jin.webp" />
+        <link rel="preload" as="image" href="/images/aot/eren-transformation.webp" />
+        <link rel="preload" as="image" href="/images/cats/whiskers.webp" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       {loading && <LoadingIndicator />}
       <div className="bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 min-h-screen">

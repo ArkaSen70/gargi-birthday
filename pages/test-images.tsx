@@ -1,8 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 
-const btsMembers = [
+interface BtsMember {
+  name: string;
+  file: string;
+}
+
+const btsMembers: BtsMember[] = [
   { name: 'RM', file: 'rm.jpg' },
   { name: 'Jin', file: 'jin.jpg' },
   { name: 'Suga', file: 'suga.jpg' },
@@ -12,7 +18,7 @@ const btsMembers = [
   { name: 'Jungkook', file: 'jungkook.jpg' }
 ]
 
-const TestImages = () => {
+const TestImages: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <Head>
@@ -32,12 +38,15 @@ const TestImages = () => {
               <div key={index} className="border rounded-lg p-4">
                 <h3 className="font-bold text-lg mb-2">{member.name}</h3>
                 <div className="aspect-w-1 aspect-h-1 relative h-40 mb-2 border">
-                  <img 
-                    src={`/images/bts/${member.file}`}
-                    alt={member.name}
-                    className="object-cover"
-                    style={{ width: '100%', height: '100%' }}
-                  />
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src={`/images/bts/${member.file}`}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 <div className="text-sm text-gray-500">
                   Path: /images/bts/{member.file}
@@ -49,12 +58,15 @@ const TestImages = () => {
           <div className="mt-8">
             <h2 className="text-2xl font-semibold mb-4">Placeholder Image Test</h2>
             <div className="aspect-w-1 aspect-h-1 relative h-40 border">
-              <img 
-                src="/images/placeholder.jpg"
-                alt="Placeholder"
-                className="object-cover"
-                style={{ width: '100%', height: '100%' }}
-              />
+              <div className="relative w-full h-full">
+                <Image 
+                  src="/images/placeholder.jpg"
+                  alt="Placeholder"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  className="object-cover"
+                />
+              </div>
             </div>
             <div className="text-sm text-gray-500 mt-2">
               Path: /images/placeholder.jpg

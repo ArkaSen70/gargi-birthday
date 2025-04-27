@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 
-const allImages = {
+interface ImageItem {
+  name: string;
+  path: string;
+}
+
+interface ImageCategories {
+  [key: string]: ImageItem[];
+}
+
+const allImages: ImageCategories = {
   bts: [
     { name: 'RM', path: '/images/bts/rm.jpg' },
     { name: 'Jin', path: '/images/bts/jin.jpg' },
@@ -50,8 +60,8 @@ const allImages = {
   ]
 };
 
-const ImageTester = () => {
-  const [selectedCategory, setSelectedCategory] = useState('bts');
+const ImageTester: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('bts');
   const categories = Object.keys(allImages);
 
   return (
@@ -82,11 +92,6 @@ const ImageTester = () => {
             overflow: hidden;
             position: relative;
             background: #f0f0f0;
-          }
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
           }
           .image-info {
             padding: 12px;
@@ -169,20 +174,31 @@ const ImageTester = () => {
   );
 };
 
-const ImageWithFallback = ({ src, alt, fallback }) => {
-  const [error, setError] = useState(false);
+interface ImageWithFallbackProps {
+  src: string;
+  alt: string;
+  fallback: string;
+}
+
+const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ src, alt, fallback }) => {
+  const [error, setError] = useState<boolean>(false);
 
   return error ? (
     <div className="error-box">{fallback}</div>
   ) : (
-    <img 
-      src={src} 
-      alt={alt} 
-      onError={() => {
-        console.error(`Failed to load image: ${src}`);
-        setError(true);
-      }} 
-    />
+    <div className="relative w-full h-full">
+      <Image 
+        src={src} 
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover"
+        onError={() => {
+          console.error(`Failed to load image: ${src}`);
+          setError(true);
+        }} 
+      />
+    </div>
   );
 };
 

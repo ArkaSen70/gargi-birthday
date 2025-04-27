@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
 import Link from 'next/link'
+import Image from 'next/image'
 
-const directories = [
+interface DirectoryItem {
+  name: string;
+  items: string[];
+}
+
+interface ImageStatusState {
+  [key: string]: 'loaded' | 'error' | undefined;
+}
+
+interface ImagePathsState {
+  [key: string]: string;
+}
+
+const directories: DirectoryItem[] = [
   { name: 'aot', items: ['eren-transformation', 'levi-vs-beast-titan', 'mikasa-in-battle', 'colossal-titan-reveal'] },
   { name: 'bts', items: ['rm', 'jin', 'suga', 'j-hope', 'jimin', 'v', 'jungkook'] },
   { name: 'cats', items: ['whiskers', 'mittens', 'shadow', 'luna', 'oliver', 'bella'] },
@@ -13,9 +27,9 @@ const directories = [
 
 const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 
-const ImageDebug = () => {
-  const [imageStatus, setImageStatus] = useState({});
-  const [imagePaths, setImagePaths] = useState({});
+const ImageDebug: React.FC = () => {
+  const [imageStatus, setImageStatus] = useState<ImageStatusState>({});
+  const [imagePaths, setImagePaths] = useState<ImagePathsState>({});
 
   useEffect(() => {
     directories.forEach(dir => {
@@ -26,7 +40,7 @@ const ImageDebug = () => {
     // eslint-disable-next-line
   }, []);
 
-  const findFirstAvailableImage = async (dir, item) => {
+  const findFirstAvailableImage = async (dir: string, item: string): Promise<void> => {
     for (const ext of extensions) {
       const path = `/images/${dir}/${item}.${ext}`;
       const exists = await checkImage(path);
@@ -39,7 +53,7 @@ const ImageDebug = () => {
     setImageStatus(prev => ({ ...prev, [`${dir}/${item}`]: 'error' }));
   };
 
-  const checkImage = (path) => {
+  const checkImage = (path: string): Promise<boolean> => {
     return new Promise((resolve) => {
       const img = new window.Image();
       img.onload = () => resolve(true);
@@ -80,10 +94,12 @@ const ImageDebug = () => {
                     </div>
                     <div className="h-48 relative flex items-center justify-center bg-black bg-opacity-20">
                       {imageStatus[key] === 'loaded' && imagePath && (
-                        <img
+                        <Image
                           src={imagePath}
                           alt={item}
-                          className="w-full h-full object-contain"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                          className="object-contain"
                         />
                       )}
                       {imageStatus[key] === 'error' && (

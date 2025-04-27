@@ -21,7 +21,7 @@ const Cats = () => {
   return (
     <Layout
       title="Cats"
-      description="Gargi's favorite furry friends"
+      description="Gargi&apos;s favorite furry friends"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -8,7 +8,7 @@ const dogs = [
   { name: 'Max', description: 'Max hopes your birthday is filled with excitement and treats!' },
   { name: 'Bailey', description: 'Bailey sends you loyal and loving birthday wishes!' },
   { name: 'Charlie', description: 'Charlie thinks you deserve the biggest bone on your birthday!' },
-  { name: 'Lucy', description: 'Lucy\'s tail is wagging with birthday happiness for you!' },
+  { name: 'Lucy', description: 'Lucy&apos;s tail is wagging with birthday happiness for you!' },
   { name: 'Daisy', description: 'Daisy hopes your birthday is as sweet as you are!' }
 ]
 
@@ -21,7 +21,7 @@ const Dogs = () => {
   return (
     <Layout
       title="Dogs"
-      description="Gargi's loyal canine friends"
+      description="Gargi&apos;s loyal canine friends"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}

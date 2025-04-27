@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description, animated 
   return (
     <>
       <Head>
-        <title>{`${title} - Gargi's Birthday`}</title>
+        <title>{`${title} - Gargi&apos;s Birthday`}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

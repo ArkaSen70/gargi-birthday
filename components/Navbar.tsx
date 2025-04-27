@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" onClick={closeMenu}>
             <span className="text-white font-bold text-xl cursor-pointer hover:text-pink-400 transition-colors">
-              Gargi's Birthday 🎉
+              Gargi&apos;s Birthday 🎉
             </span>
           </Link>
           

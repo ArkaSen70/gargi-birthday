@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
 // Dynamically import the StarryBackground component
@@ -14,7 +13,6 @@ const StarryBackground = dynamic(
 export default function LetterPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
-  const router = useRouter();
   
   // Letter content sections that will be revealed gradually
   const letterSections = [
@@ -39,7 +37,7 @@ export default function LetterPage() {
     }, 3000);
     
     return () => clearInterval(timer);
-  }, []);
+  }, [letterSections.length]); // Added letterSections.length as dependency
 
   // Animation variants for letter sections
   const containerVariants = {

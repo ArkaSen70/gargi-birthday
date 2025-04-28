@@ -4,24 +4,10 @@ import { Text, Float } from '@react-three/drei';
 import { useRouter } from 'next/router';
 import * as THREE from 'three';
 
-// Create a heart shape that can be used in the component
-const createHeartShape = () => {
-  const heartShape = new THREE.Shape();
-  
-  heartShape.moveTo(0, 0.25);
-  heartShape.bezierCurveTo(0, 0.25, -0.25, 0, -0.5, 0.25);
-  heartShape.bezierCurveTo(-0.75, 0.75, -0.5, 0.75, 0, 0.75);
-  heartShape.bezierCurveTo(0.5, 0.75, 0.75, 0.75, 0.5, 0.25);
-  heartShape.bezierCurveTo(0.25, 0, 0, 0.25, 0, 0.25);
-  
-  return heartShape;
-};
-
 const LetterButton = () => {
   const router = useRouter();
   const envelope = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
-  const [active, setActive] = useState(false);
   
   // Animation for envelope hover and click
   useFrame(() => {
@@ -53,8 +39,6 @@ const LetterButton = () => {
   });
 
   const handleClick = () => {
-    setActive(true);
-    
     // Navigate to the letter page
     setTimeout(() => {
       router.push('/my-letter');
@@ -106,7 +90,7 @@ const LetterButton = () => {
           <meshStandardMaterial color="#f0c4a9" roughness={0.5} side={THREE.DoubleSide} />
         </mesh>
         
-        {/* Heart seal - using simple box for now to avoid geometry issues */}
+        {/* Heart seal - using simple sphere */}
         <mesh position={[0, 0.31, 0]} scale={[0.4, 0.4, 0.4]} castShadow>
           <sphereGeometry args={[0.5, 16, 16]} />
           <meshStandardMaterial color="#ff6b8b" roughness={0.3} metalness={0.4} />

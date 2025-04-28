@@ -5,13 +5,7 @@ import FloatingBalloons from '../components/FloatingBalloons'
 import Confetti from '../components/Confetti'
 import Layout from '../components/Layout'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
-
-// Dynamically import the letter button container with SSR disabled
-const LetterButtonContainer = dynamic(
-  () => import('../components/LetterButtonContainer'),
-  { ssr: false }
-);
+import SimpleLetterButton from '../components/SimpleLetterButton'
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false)
@@ -94,20 +88,8 @@ export default function Home() {
                 </div>
               </Link>
               
-              {/* Letter Button Container */}
-              <LetterButtonContainer />
-              
-              {/* Fallback link text in case the 3D component fails */}
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 3 }}
-                className="text-sm text-pink-300 hover:text-pink-200"
-              >
-                <Link href="/my-letter">
-                  <div className="cursor-pointer">Read my letter to you ❤️</div>
-                </Link>
-              </motion.div>
+              {/* Simple Letter Button - more reliable than the 3D version */}
+              <SimpleLetterButton />
             </motion.div>
           </motion.div>
         )}

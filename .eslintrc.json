@@ -2,23 +2,26 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "@next/next/no-img-element": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react-hooks/exhaustive-deps": "warn",
     "react/no-unescaped-entities": "off"
   },
   "ignorePatterns": ["node_modules/", ".next/", "public/"],
   "overrides": [
     {
-      "files": ["pages/my-letter.tsx"],
+      "files": ["pages/**/*.tsx", "pages/**/*.ts"],
       "rules": {
-        "react/no-unescaped-entities": "off"
+        "react/no-unescaped-entities": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "react-hooks/exhaustive-deps": "off"
       }
     },
     {
-      "files": ["components/LetterButtonContainer.tsx"],
+      "files": ["components/**/*.tsx", "components/**/*.ts"],
       "rules": {
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ]

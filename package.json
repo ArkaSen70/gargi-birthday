@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "convert-images": "node scripts/convert-to-webp.js",
-    "prebuild": "npm run convert-images",
+    "fix-linting": "node scripts/fix-linting.js",
+    "prebuild": "npm run convert-images && npm run fix-linting",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

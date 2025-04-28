@@ -51,6 +51,6 @@ const FloatingBalloons: React.FC = () => {
       ))}
     </div>
   )
-}
+} 
 
 export default FloatingBalloons 

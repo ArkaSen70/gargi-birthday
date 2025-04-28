@@ -89,7 +89,7 @@ const Debug: React.FC = () => {
                     </div>
                     <Image 
                       src={`/images/bts/${file}`} 
-                      alt={file}
+                      alt={file} 
                       fill
                       sizes="(max-width: 768px) 50vw, 200px"
                       className="object-cover"

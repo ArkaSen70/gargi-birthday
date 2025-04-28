@@ -56,6 +56,6 @@ const Confetti: React.FC = () => {
       ))}
     </div>
   )
-}
+} 
 
 export default Confetti 

@@ -40,12 +40,12 @@ const TestImages: React.FC = () => {
                 <div className="aspect-w-1 aspect-h-1 relative h-40 mb-2 border">
                   <div className="relative w-full h-full">
                     <Image 
-                      src={`/images/bts/${member.file}`}
-                      alt={member.name}
+                    src={`/images/bts/${member.file}`}
+                    alt={member.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover"
-                    />
+                    className="object-cover"
+                  />
                   </div>
                 </div>
                 <div className="text-sm text-gray-500">
@@ -60,12 +60,12 @@ const TestImages: React.FC = () => {
             <div className="aspect-w-1 aspect-h-1 relative h-40 border">
               <div className="relative w-full h-full">
                 <Image 
-                  src="/images/placeholder.jpg"
-                  alt="Placeholder"
+                src="/images/placeholder.jpg"
+                alt="Placeholder"
                   fill
                   sizes="(max-width: 768px) 100vw, 800px"
-                  className="object-cover"
-                />
+                className="object-cover"
+              />
               </div>
             </div>
             <div className="text-sm text-gray-500 mt-2">

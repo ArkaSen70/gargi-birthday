@@ -17,8 +17,8 @@ const BTS: React.FC = () => {
   useEffect(() => {
     // Remove console logs in production to improve performance
     if (process.env.NODE_ENV === 'development') {
-      console.log("BTS Page loaded");
-      console.log("Looking for images in:", btsMembers.map(m => `/images/bts/${m.name.toLowerCase().replace(/\s+/g, '-')}.jpg`));
+    console.log("BTS Page loaded");
+    console.log("Looking for images in:", btsMembers.map(m => `/images/bts/${m.name.toLowerCase().replace(/\s+/g, '-')}.jpg`));
     }
   }, []);
 

@@ -22,7 +22,7 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '', pr
     const sanitizedText = text.toLowerCase().replace(/\s+/g, '-')
     return `/images/${theme}/${sanitizedText}`;
   }, [text, theme]);
-  
+
   // Try loading the image with different extensions
   const tryLoadImage = useCallback(async (basePath: string): Promise<void> => {
     // Prefer WebP for better performance if supported
@@ -105,21 +105,21 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '', pr
               <div className="relative w-full h-full">
                 <Image
                   src={imagePath}
-                  alt={text}
+            alt={text}
                   fill
                   priority={priority}
                   quality={80}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={`object-contain transition-all duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  style={{ 
+            style={{ 
                     transform: isHovered ? 'scale(1.1)' : 'scale(1)',
                     filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
-                  }}
+            }}
                   blurDataURL={blurDataURL}
                   placeholder="blur"
-                  onError={handleError}
+            onError={handleError}
                   onLoad={handleImageLoad}
-                />
+          />
               </div>
               <div 
                 className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 transition-all duration-500 z-10"
@@ -143,7 +143,7 @@ const ThemeImage: React.FC<ThemeImageProps> = ({ text, theme, className = '', pr
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
           )}
         </>
       )}

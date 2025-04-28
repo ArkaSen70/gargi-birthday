@@ -49,9 +49,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       {loading && <LoadingIndicator />}
-      <div className="bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 min-h-screen">
-        <Component {...pageProps} />
-      </div>
+    <div className="bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 min-h-screen">
+      <Component {...pageProps} />
+    </div>
     </>
   )
 } 

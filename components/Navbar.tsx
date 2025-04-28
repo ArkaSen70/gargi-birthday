@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex space-x-4">
             {navItems.map((item) => (
               <Link 
-                key={item.path} 
+                key={item.path}
                 href={item.path}
                 className={`text-white hover:text-pink-400 transition-colors px-3 py-2 rounded-md ${
                   router.pathname === item.path ? 'text-pink-400 font-bold' : ''

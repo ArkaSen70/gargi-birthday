@@ -188,16 +188,16 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ src, alt, fallbac
   ) : (
     <div className="relative w-full h-full">
       <Image 
-        src={src} 
-        alt={alt}
+      src={src} 
+      alt={alt} 
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="object-cover"
-        onError={() => {
-          console.error(`Failed to load image: ${src}`);
-          setError(true);
-        }} 
-      />
+      onError={() => {
+        console.error(`Failed to load image: ${src}`);
+        setError(true);
+      }} 
+    />
     </div>
   );
 };

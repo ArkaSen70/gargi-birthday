@@ -5,6 +5,13 @@ import FloatingBalloons from '../components/FloatingBalloons'
 import Confetti from '../components/Confetti'
 import Layout from '../components/Layout'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+
+// Dynamically import the letter button container with SSR disabled
+const LetterButtonContainer = dynamic(
+  () => import('../components/LetterButtonContainer'),
+  { ssr: false }
+);
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false)
@@ -38,7 +45,7 @@ export default function Home() {
           className="text-7xl md:text-9xl font-bold text-white mb-6"
         >
           Happy Birthday
-          <span className="block text-pink-400 mt-2">Gargi Mondal</span>
+          <span className="block text-pink-400 mt-2">Gargi</span>
         </motion.h1>
         
         <motion.p
@@ -79,13 +86,28 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
-              className="mt-12"
+              className="mt-12 space-y-6"
             >
               <Link href="/surprise-gifts">
                 <div className="inline-block px-10 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xl rounded-full hover:shadow-lg hover:scale-105 transform transition-all duration-300 cursor-pointer">
                   Surprise Gift
                 </div>
               </Link>
+              
+              {/* Letter Button Container */}
+              <LetterButtonContainer />
+              
+              {/* Fallback link text in case the 3D component fails */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 3 }}
+                className="text-sm text-pink-300 hover:text-pink-200"
+              >
+                <Link href="/my-letter">
+                  <div className="cursor-pointer">Read my letter to you ❤️</div>
+                </Link>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}

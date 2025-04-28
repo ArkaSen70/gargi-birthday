@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -14,30 +14,32 @@ export default function LetterPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   
-  // Letter content sections that will be revealed gradually
-  const letterSections = [
+  // Memoize letter sections to avoid recreation on every render
+  const letterSections = React.useMemo(() => [
     "Dear Gargi,",
     "Some people walk into your life unexpectedly, and somehow, they help you put back the pieces you thought were lost forever. You were that light for me when everything around felt dim. Your words, your presence, and simply the way you listened brought me back to myself when I needed it most.",
-    "On your special day, I just want to say&mdash;thank you for being exactly who you are. You&apos;ve given me something priceless: hope, healing, and the warmth of a soul that genuinely cares. You deserve all the joy this world can offer.",
+    "On your special day, I just want to say&mdash;thank you for being exactly who you are. You&#39;ve given me something priceless: hope, healing, and the warmth of a soul that genuinely cares. You deserve all the joy this world can offer.",
     "Happy Birthday!",
-  ];
+  ], []);
+
+  // Use callback for section change to avoid recreating function
+  const handleSectionChange = useCallback(() => {
+    setCurrentSection((prev) => {
+      if (prev < letterSections.length - 1) {
+        return prev + 1;
+      }
+      return prev;
+    });
+  }, [letterSections.length]);
 
   useEffect(() => {
     setIsVisible(true);
     
     // Automatic scrolling through letter sections
-    const timer = setInterval(() => {
-      setCurrentSection((prev) => {
-        if (prev < letterSections.length - 1) {
-          return prev + 1;
-        }
-        clearInterval(timer);
-        return prev;
-      });
-    }, 3000);
+    const timer = setInterval(handleSectionChange, 3000);
     
     return () => clearInterval(timer);
-  }, [letterSections.length]);
+  }, [handleSectionChange]);
 
   // Animation variants for letter sections
   const containerVariants = {
@@ -128,9 +130,8 @@ export default function LetterPage() {
                   key={index} 
                   variants={itemVariants}
                   className={`text-lg md:text-xl ${index === 0 ? 'text-pink-300 font-semibold' : 'text-gray-200'}`}
-                >
-                  {section}
-                </motion.p>
+                  dangerouslySetInnerHTML={{ __html: section }}
+                />
               ))}
             </motion.div>
             

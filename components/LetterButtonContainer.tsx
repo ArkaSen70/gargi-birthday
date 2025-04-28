@@ -143,9 +143,10 @@ const LetterButtonContainer: React.FC = () => {
 
 // Simple error boundary component
 class ErrorBoundary extends React.Component<{ children: React.ReactNode, onError: () => void }> {
-  componentDidCatch(error: Error) {
+  // Using a type union for the error parameter
+  componentDidCatch(error: Error | string | unknown) {
     // Call the onError callback when an error is caught
-    console.error('Error in letter button:', error.message);
+    console.error('Error in letter button:', error instanceof Error ? error.message : String(error));
     this.props.onError();
   }
   

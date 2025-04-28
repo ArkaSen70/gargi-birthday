@@ -4,42 +4,35 @@ import { Text, Float } from '@react-three/drei';
 import { useRouter } from 'next/router';
 import * as THREE from 'three';
 
+/**
+ * 3D Envelope button component
+ * Interactive envelope that animates on hover and navigates to letter page on click
+ */
 const LetterButton = () => {
   const router = useRouter();
   const envelope = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  // Animation for envelope hover and click
+  // Animation for envelope hover
   useFrame(() => {
-    if (envelope.current) {
-      envelope.current.rotation.y = THREE.MathUtils.lerp(
-        envelope.current.rotation.y,
-        hovered ? 0.2 : 0,
-        0.1
-      );
-      
-      envelope.current.scale.x = THREE.MathUtils.lerp(
-        envelope.current.scale.x,
-        hovered ? 1.1 : 1,
-        0.1
-      );
-      
-      envelope.current.scale.y = THREE.MathUtils.lerp(
-        envelope.current.scale.y,
-        hovered ? 1.1 : 1,
-        0.1
-      );
-      
-      envelope.current.scale.z = THREE.MathUtils.lerp(
-        envelope.current.scale.z,
-        hovered ? 1.1 : 1,
-        0.1
-      );
-    }
+    if (!envelope.current) return;
+    
+    // Interpolate rotation and scale based on hover state
+    envelope.current.rotation.y = THREE.MathUtils.lerp(
+      envelope.current.rotation.y,
+      hovered ? 0.2 : 0,
+      0.1
+    );
+    
+    // Scale all dimensions uniformly
+    const targetScale = hovered ? 1.1 : 1;
+    envelope.current.scale.x = THREE.MathUtils.lerp(envelope.current.scale.x, targetScale, 0.1);
+    envelope.current.scale.y = THREE.MathUtils.lerp(envelope.current.scale.y, targetScale, 0.1);
+    envelope.current.scale.z = THREE.MathUtils.lerp(envelope.current.scale.z, targetScale, 0.1);
   });
 
+  // Navigate to letter page on click
   const handleClick = () => {
-    // Navigate to the letter page
     setTimeout(() => {
       router.push('/my-letter');
     }, 600);

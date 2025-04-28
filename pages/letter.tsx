@@ -18,7 +18,7 @@ export default function LetterPage() {
   const letterSections = [
     "Dear Gargi,",
     "Some people walk into your life unexpectedly, and somehow, they help you put back the pieces you thought were lost forever. You were that light for me when everything around felt dim. Your words, your presence, and simply the way you listened brought me back to myself when I needed it most.",
-    "On your special day, I just want to say—thank you for being exactly who you are. You've given me something priceless: hope, healing, and the warmth of a soul that genuinely cares. You deserve all the joy this world can offer.",
+    "On your special day, I just want to say&mdash;thank you for being exactly who you are. You&apos;ve given me something priceless: hope, healing, and the warmth of a soul that genuinely cares. You deserve all the joy this world can offer.",
     "Happy Birthday!",
   ];
 

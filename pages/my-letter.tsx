@@ -165,7 +165,7 @@ export default function MyLetterPage() {
                       transition={{ duration: 0.6, delay: 1.0 }}
                       className="text-lg md:text-xl text-gray-200"
                     >
-                      On your special day, I just want to say&mdash;thank you for being exactly who you are. You&apos;ve given me something priceless: hope, healing, and the warmth of a soul that genuinely cares. You deserve all the joy this world can offer.
+                      On your special day, I just want to say&mdash;thank you for being exactly who you are. You&#39;ve given me something priceless: hope, healing, and the warmth of a soul that genuinely cares. You deserve all the joy this world can offer.
                     </motion.p>
                     
                     <motion.p 

@@ -37,7 +37,7 @@ export default function LetterPage() {
     }, 3000);
     
     return () => clearInterval(timer);
-  }, [letterSections.length]); // Added letterSections.length as dependency
+  }, [letterSections.length]);
 
   // Animation variants for letter sections
   const containerVariants = {

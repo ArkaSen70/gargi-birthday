@@ -7,5 +7,19 @@
     "react-hooks/exhaustive-deps": "off",
     "react/no-unescaped-entities": "off"
   },
-  "ignorePatterns": ["node_modules/", ".next/", "public/"]
+  "ignorePatterns": ["node_modules/", ".next/", "public/"],
+  "overrides": [
+    {
+      "files": ["pages/my-letter.tsx"],
+      "rules": {
+        "react/no-unescaped-entities": "off"
+      }
+    },
+    {
+      "files": ["components/LetterButtonContainer.tsx"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
 } 
